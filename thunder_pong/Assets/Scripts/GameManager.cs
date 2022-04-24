@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class GameManager : MonoBehaviour
     GameObject _player1;
     GameObject _player2;
     public static GameManager _instance = null;
+    [SerializeField]
+    Image _pausePanel;
     private void Awake()
     {
         _difficultyLevels.Add(0, 6.5f);
@@ -37,6 +40,20 @@ public class GameManager : MonoBehaviour
 
     }
 
+    void Update(){
+        //if scape is pressed, pause the game
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (gameStarted)
+            {
+                PauseGame();
+            }
+            else
+            {
+                ResumeGame();
+            }
+        }
+    }
     public bool IsGameStarted()
     {
         return gameStarted;
@@ -49,6 +66,15 @@ public class GameManager : MonoBehaviour
     public void PauseGame()
     {
         gameStarted = false;
+        Time.timeScale = 0;
+        _pausePanel.gameObject.SetActive(true);
+    }
+
+    void ResumeGame()
+    {
+        gameStarted = true;
+        Time.timeScale = 1;
+        _pausePanel.gameObject.SetActive(false);
     }
     public void CheckPlayerWon(int score, string playerName)
     {
