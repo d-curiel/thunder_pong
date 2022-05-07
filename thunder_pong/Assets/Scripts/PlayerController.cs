@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : IPlayerController
 {
     [SerializeField]
     float speed = 20f;
     [SerializeField]
     string axis;
-    // Start is called before the first frame update
+
     void Start()
     {
     }
@@ -21,5 +21,6 @@ public class PlayerController : MonoBehaviour
             GetComponent<Rigidbody2D>().velocity = new Vector2(0, v) * speed;
         }
     }
+    
     
 }

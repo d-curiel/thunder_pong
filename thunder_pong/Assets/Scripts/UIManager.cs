@@ -4,8 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+[RequireComponent(typeof(AudioSource))]
 public class UIManager : MonoBehaviour
 {
+    AudioSource audioSource;
+    [SerializeField]
+    AudioClip [] buttonSounds;
 
     [SerializeField]
     private Button _singlePlayerButton;
@@ -17,8 +21,6 @@ public class UIManager : MonoBehaviour
     private Button _hardButton;
     [SerializeField]
     private Button _multiPlayerButton;
-    [SerializeField]
-    private Button _optionsButton;
 
 
 
@@ -29,7 +31,6 @@ public class UIManager : MonoBehaviour
         _mediumButton.onClick.AddListener(OnMediumButtonClick);
         _hardButton.onClick.AddListener(OnHardButtonClick);
         _multiPlayerButton.onClick.AddListener(OnMultiPlayerButtonClick);
-        _optionsButton.onClick.AddListener(OnOptionsButtonClick);
     }
 
     private void OnSinglePlayerButtonClick()
@@ -37,7 +38,8 @@ public class UIManager : MonoBehaviour
         _easyButton.gameObject.SetActive(true);
         _mediumButton.gameObject.SetActive(true);
         _hardButton.gameObject.SetActive(true);
-        Debug.Log("Single Player Button Clicked");
+        _singlePlayerButton.gameObject.SetActive(false);
+        _multiPlayerButton.gameObject.SetActive(false);
     }
 
     private void OnEasyButtonClick()
@@ -45,7 +47,6 @@ public class UIManager : MonoBehaviour
         PlayerPrefs.SetInt("Difficulty", 0);
         PlayerPrefs.SetInt("PlayerCount", 1);
         ChangeToGameScene();
-        Debug.Log("Easy Button Clicked");
     }
 
     private void OnMediumButtonClick()
@@ -53,7 +54,6 @@ public class UIManager : MonoBehaviour
         PlayerPrefs.SetInt("Difficulty", 1);
         PlayerPrefs.SetInt("PlayerCount", 1);
         ChangeToGameScene();
-        Debug.Log("Medium Button Clicked");
     }
 
     private void OnHardButtonClick()
@@ -61,7 +61,6 @@ public class UIManager : MonoBehaviour
         PlayerPrefs.SetInt("Difficulty", 2);
         PlayerPrefs.SetInt("PlayerCount", 1);
         ChangeToGameScene();
-        Debug.Log("Hard Button Clicked");
     }
 
     private void OnMultiPlayerButtonClick()
@@ -69,7 +68,6 @@ public class UIManager : MonoBehaviour
         PlayerPrefs.SetInt("Difficulty", 0);
         PlayerPrefs.SetInt("PlayerCount", 2);
         ChangeToGameScene();
-        Debug.Log("Multi Player Button Clicked");
     }
 
     void ChangeToGameScene()
@@ -77,8 +75,4 @@ public class UIManager : MonoBehaviour
         SceneManager.LoadScene(1);
     }
 
-    private void OnOptionsButtonClick()
-    {
-        Debug.Log("Options Button Clicked");
-    }
 }

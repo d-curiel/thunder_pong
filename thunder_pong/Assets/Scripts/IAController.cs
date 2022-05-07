@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IAController : MonoBehaviour
+public class IAController : IPlayerController
 {
     GameObject ball;
     [SerializeField]
