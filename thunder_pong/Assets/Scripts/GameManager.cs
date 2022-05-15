@@ -18,9 +18,9 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         _backgroundMusicController = FindObjectOfType<BackgroundMusicController>();
-        _difficultyLevels.Add(0, 7.5f);
-        _difficultyLevels.Add(1, 8f);
-        _difficultyLevels.Add(2, 8.5f);
+        _difficultyLevels.Add(0, 6.5f);
+        _difficultyLevels.Add(1, 7f);
+        _difficultyLevels.Add(2, 7.5f);
 
         int difficulty = PlayerPrefs.GetInt("Difficulty");
         _difficulty = _difficultyLevels[difficulty];

@@ -45,7 +45,7 @@ public class BackgroundMusicController : MonoBehaviour
                 audioSource.Play();
 
                 //4.Wait for it to finish playing
-                while (audioSource.isPlaying || !GameManager._instance.IsGameStarted())
+                while (audioSource.isPlaying || (GameManager._instance != null && !GameManager._instance.IsGameStarted()))
                 {
                     yield return null;
                 }

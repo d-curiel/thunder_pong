@@ -873,6 +873,14 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 6804188286031295257, guid: cd6dd475f55c11447ba292df47cbcc4e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -40.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6804188286218279282, guid: cd6dd475f55c11447ba292df47cbcc4e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 40.7
+      objectReference: {fileID: 0}
     - target: {fileID: 6804188286501044264, guid: cd6dd475f55c11447ba292df47cbcc4e, type: 3}
       propertyPath: m_SortingOrder
       value: 1
