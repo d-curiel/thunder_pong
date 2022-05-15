@@ -24,12 +24,17 @@ public class GameSceneUIManager : MonoBehaviour
 
     [SerializeField]
     Image _winningPanel;
+
+    [SerializeField]
+    Image _instructionsPanel;
     [SerializeField]
     Text _winningText;
     [SerializeField]
     Button _btnRestart;
     [SerializeField]
     Button _btnQuitToMenu;
+    [SerializeField]
+    Button _startGameButton;
     public static GameSceneUIManager _instance;
 
     AudioSource audioSource;
@@ -57,6 +62,7 @@ public class GameSceneUIManager : MonoBehaviour
         _cancelQuit.onClick.AddListener(OnCancelQuitButtonClick);
         _btnRestart.onClick.AddListener(OnRestartButtonClick);
         _btnQuitToMenu.onClick.AddListener(OnConfirmQuitButtonClick);
+        _startGameButton.onClick.AddListener(OnStartGameButtonClick);
     }
 
     private void Update()
@@ -74,6 +80,12 @@ public class GameSceneUIManager : MonoBehaviour
         }
     }
 
+    void OnStartGameButtonClick()
+    {
+        audioSource.PlayOneShot(buttonSounds[0]);
+        _instructionsPanel.gameObject.SetActive(false);
+        GameManager._instance.StartGame();
+    }
     void OnPauseButtonClick()
     {
         audioSource.PlayOneShot(buttonSounds[1]);
@@ -141,5 +153,10 @@ public class GameSceneUIManager : MonoBehaviour
         audioSource.PlayOneShot(_loseSound);
         _winningPanel.gameObject.SetActive(true);
         _winningText.text = "Has perdido\n¿Desea volver a jugar?";
+    }
+
+    public void changeVisibilitiInstructionsPanel(bool value)
+    {
+        _instructionsPanel.gameObject.SetActive(value);
     }
 }

@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     float _difficulty;
     [SerializeField]
     bool gameStarted = false;
-    int maxPoints = 1;
+    int maxPoints = 11;
 
     GameObject _player1;
     GameObject _player2;
@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
         _player2.GetComponent<IAController>().enabled = PlayerPrefs.GetInt("PlayerCount") == 1;
 
         _player2.GetComponent<IAController>().SetSpeed(_difficulty);
-        StartGame();
+        Time.timeScale = 0;
 
     }
 
@@ -51,6 +51,8 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         gameStarted = true;
+        Time.timeScale = 1;
+    
     }
     public void ChangeGameStarted()
     {

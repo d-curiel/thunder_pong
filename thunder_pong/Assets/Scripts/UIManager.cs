@@ -21,6 +21,8 @@ public class UIManager : MonoBehaviour
     private Button _hardButton;
     [SerializeField]
     private Button _multiPlayerButton;
+    [SerializeField]
+    private Button _backButton;
 
 
 
@@ -32,6 +34,7 @@ public class UIManager : MonoBehaviour
         _mediumButton.onClick.AddListener(OnMediumButtonClick);
         _hardButton.onClick.AddListener(OnHardButtonClick);
         _multiPlayerButton.onClick.AddListener(OnMultiPlayerButtonClick);
+        _backButton.onClick.AddListener(OnBackButtonClick);
     }
 
     private void OnSinglePlayerButtonClick()
@@ -42,6 +45,7 @@ public class UIManager : MonoBehaviour
         _hardButton.gameObject.SetActive(true);
         _singlePlayerButton.gameObject.SetActive(false);
         _multiPlayerButton.gameObject.SetActive(false);
+        _backButton.gameObject.SetActive(true);
     }
 
     private void OnEasyButtonClick()
@@ -74,6 +78,17 @@ public class UIManager : MonoBehaviour
         PlayerPrefs.SetInt("Difficulty", 0);
         PlayerPrefs.SetInt("PlayerCount", 2);
         ChangeToGameScene();
+    }
+
+    private void OnBackButtonClick()
+    {
+        audioSource.PlayOneShot(buttonSounds[1]);
+        _singlePlayerButton.gameObject.SetActive(true);
+        _multiPlayerButton.gameObject.SetActive(true);
+        _easyButton.gameObject.SetActive(false);
+        _mediumButton.gameObject.SetActive(false);
+        _hardButton.gameObject.SetActive(false);
+        _backButton.gameObject.SetActive(false);
     }
 
     void ChangeToGameScene()
