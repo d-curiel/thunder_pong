@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 37608108, guid: 610ad7be4f214954399d12f2ee0d0887, type: 3}
+      propertyPath: ShapeModule.m_Rotation.y
+      value: -90
+      objectReference: {fileID: 0}
     - target: {fileID: 8827959785699238307, guid: 610ad7be4f214954399d12f2ee0d0887, type: 3}
       propertyPath: m_FlipX
       value: 1
@@ -77,6 +81,10 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: 8c8816256e8cc9f4c87044a6cbf5e577, type: 3}
     - target: {fileID: 8827959786712872347, guid: 610ad7be4f214954399d12f2ee0d0887, type: 3}
       propertyPath: m_Name
+      value: Player2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8827959786712872347, guid: 610ad7be4f214954399d12f2ee0d0887, type: 3}
+      propertyPath: m_TagString
       value: Player2
       objectReference: {fileID: 0}
     - target: {fileID: 8827959787275625160, guid: 610ad7be4f214954399d12f2ee0d0887, type: 3}

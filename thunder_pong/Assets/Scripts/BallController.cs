@@ -5,10 +5,14 @@ using UnityEngine;
 public class BallController : MonoBehaviour
 {
 
+    private static int HITS_UNTIL_INCREMENT_SPEED = 10;
+    private static float SPEED_INCREMENT_FACTOR = 0.5f;
+    private static float BASE_SPEED = 20f;
     [SerializeField]
     float speed = 20f;
     [SerializeField]
     GameObject ballStartPosition;
+    int playersHit = 0;
 
     void Start()
     {
@@ -17,19 +21,36 @@ public class BallController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        float y = hitFactor(this.transform.position, collision.transform.position, collision.collider.bounds.size.y);
         if (collision.gameObject.name == "Player1")
         {
-            Vector2 direction = new Vector2(1, y).normalized;
-            GetComponent<Rigidbody2D>().velocity = direction * speed;
+            SetNewDirection(collision, 1);
+            IncrementBallHits();
         }
         else if (collision.gameObject.name == "Player2")
         {
-            Vector2 direction = new Vector2(-1, y).normalized;
-            GetComponent<Rigidbody2D>().velocity = direction * speed;
-
+            SetNewDirection(collision, -1);
+            IncrementBallHits();
         }
+        CheckSpeedIncrement();
 
+    }
+
+    private void SetNewDirection(Collision2D collision, int direction)
+    {
+        float y = hitFactor(this.transform.position, collision.transform.position, collision.collider.bounds.size.y);
+        GetComponent<Rigidbody2D>().velocity = new Vector2(direction, y).normalized * speed;
+    }
+    private void IncrementBallHits()
+    {
+        playersHit++;
+    }
+    private void CheckSpeedIncrement()
+    {
+        if (playersHit == HITS_UNTIL_INCREMENT_SPEED)
+        {
+            speed += SPEED_INCREMENT_FACTOR;
+            playersHit = 0;
+        }
     }
 
     float hitFactor(Vector2 player, Vector2 ball, float playerWidth)
@@ -47,6 +68,7 @@ public class BallController : MonoBehaviour
     {
 
         float random = Random.Range(0, 2);
+        this.speed = BASE_SPEED;
         if (random < 1)
         {
             GetComponent<Rigidbody2D>().velocity = Vector2.right * speed;

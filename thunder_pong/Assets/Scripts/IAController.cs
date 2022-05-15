@@ -24,7 +24,4 @@ public class IAController : IPlayerController
         this.speed = speed;
     }
 
-    float RandomHitFactor(){
-        return (Random.Range(0f, 1f) - 0.5f);
-    }
 }

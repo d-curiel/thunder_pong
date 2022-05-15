@@ -26,6 +26,7 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         _singlePlayerButton.onClick.AddListener(OnSinglePlayerButtonClick);
         _easyButton.onClick.AddListener(OnEasyButtonClick);
         _mediumButton.onClick.AddListener(OnMediumButtonClick);
@@ -35,6 +36,7 @@ public class UIManager : MonoBehaviour
 
     private void OnSinglePlayerButtonClick()
     {
+        audioSource.PlayOneShot(buttonSounds[0]);
         _easyButton.gameObject.SetActive(true);
         _mediumButton.gameObject.SetActive(true);
         _hardButton.gameObject.SetActive(true);
@@ -44,6 +46,7 @@ public class UIManager : MonoBehaviour
 
     private void OnEasyButtonClick()
     {
+        audioSource.PlayOneShot(buttonSounds[1]);
         PlayerPrefs.SetInt("Difficulty", 0);
         PlayerPrefs.SetInt("PlayerCount", 1);
         ChangeToGameScene();
@@ -51,6 +54,7 @@ public class UIManager : MonoBehaviour
 
     private void OnMediumButtonClick()
     {
+        audioSource.PlayOneShot(buttonSounds[1]);
         PlayerPrefs.SetInt("Difficulty", 1);
         PlayerPrefs.SetInt("PlayerCount", 1);
         ChangeToGameScene();
@@ -58,6 +62,7 @@ public class UIManager : MonoBehaviour
 
     private void OnHardButtonClick()
     {
+        audioSource.PlayOneShot(buttonSounds[1]);
         PlayerPrefs.SetInt("Difficulty", 2);
         PlayerPrefs.SetInt("PlayerCount", 1);
         ChangeToGameScene();
@@ -65,6 +70,7 @@ public class UIManager : MonoBehaviour
 
     private void OnMultiPlayerButtonClick()
     {
+        audioSource.PlayOneShot(buttonSounds[0]);
         PlayerPrefs.SetInt("Difficulty", 0);
         PlayerPrefs.SetInt("PlayerCount", 2);
         ChangeToGameScene();

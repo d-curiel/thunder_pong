@@ -16,11 +16,11 @@ public class PlayerController : IPlayerController
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(GameManager._instance.IsGameStarted()){
+        if (GameManager._instance.IsGameStarted())
+        {
             float v = Input.GetAxisRaw(axis);
             GetComponent<Rigidbody2D>().velocity = new Vector2(0, v) * speed;
         }
     }
-    
-    
+
 }

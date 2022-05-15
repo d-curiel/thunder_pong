@@ -7,19 +7,20 @@ public class GameManager : MonoBehaviour
 {
     Dictionary<int, float> _difficultyLevels = new Dictionary<int, float>();
     float _difficulty;
+    [SerializeField]
     bool gameStarted = false;
-    int maxPoints = 11;
+    int maxPoints = 1;
 
     GameObject _player1;
     GameObject _player2;
     public static GameManager _instance = null;
-    [SerializeField]
-    Image _pausePanel;
+    BackgroundMusicController _backgroundMusicController;
     private void Awake()
     {
-        _difficultyLevels.Add(0, 6.5f);
-        _difficultyLevels.Add(1, 7f);
-        _difficultyLevels.Add(2, 7.5f);
+        _backgroundMusicController = FindObjectOfType<BackgroundMusicController>();
+        _difficultyLevels.Add(0, 7.5f);
+        _difficultyLevels.Add(1, 8f);
+        _difficultyLevels.Add(2, 8.5f);
 
         int difficulty = PlayerPrefs.GetInt("Difficulty");
         _difficulty = _difficultyLevels[difficulty];
@@ -34,25 +35,14 @@ public class GameManager : MonoBehaviour
         _player1.GetComponent<PlayerController>().enabled = true;
         _player2.GetComponent<PlayerController>().enabled = PlayerPrefs.GetInt("PlayerCount") != 1;
         _player2.GetComponent<IAController>().enabled = PlayerPrefs.GetInt("PlayerCount") == 1;
-        
+
         _player2.GetComponent<IAController>().SetSpeed(_difficulty);
         StartGame();
 
     }
 
-    void Update(){
-        //if scape is pressed, pause the game
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            if (gameStarted)
-            {
-                PauseGame();
-            }
-            else
-            {
-                ResumeGame();
-            }
-        }
+    void Update()
+    {
     }
     public bool IsGameStarted()
     {
@@ -62,26 +52,34 @@ public class GameManager : MonoBehaviour
     {
         gameStarted = true;
     }
-
-    public void PauseGame()
+    public void ChangeGameStarted()
     {
-        gameStarted = false;
-        Time.timeScale = 0;
-        _pausePanel.gameObject.SetActive(true);
+        gameStarted = !gameStarted;
     }
 
-    void ResumeGame()
-    {
-        gameStarted = true;
-        Time.timeScale = 1;
-        _pausePanel.gameObject.SetActive(false);
-    }
-    public void CheckPlayerWon(int score, string playerName)
+    public void CheckPlayerWon(int score, GameObject winningPlayer)
     {
         if (score >= maxPoints)
         {
-            Debug.Log(playerName + " won the game");
-            PauseGame();
+            Time.timeScale = 0;
+            gameStarted = false;
+            _backgroundMusicController.StopMusic();
+            if (winningPlayer.tag == "Player")
+            {
+                GameSceneUIManager._instance.ShowWinningPanel("Jugador 1");
+            }
+            else
+            {
+                if (winningPlayer.GetComponent<IAController>().enabled)
+                {
+                    GameSceneUIManager._instance.ShowGameOverPanel();
+                }
+                else
+                {
+                    GameSceneUIManager._instance.ShowWinningPanel("Jugador 2");
+                }
+            }
+
         }
     }
     public float GetDifficulty()
