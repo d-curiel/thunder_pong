@@ -9,8 +9,11 @@ public class PlayerController : IPlayerController
     [SerializeField]
     string axis;
 
+    float currentSpeed;
+    float speedSmooth = 2.5f;
     void Start()
     {
+        currentSpeed = 0f;
     }
 
     // Update is called once per frame
@@ -19,7 +22,25 @@ public class PlayerController : IPlayerController
         if (GameManager._instance.IsGameStarted())
         {
             float v = Input.GetAxisRaw(axis);
-            GetComponent<Rigidbody2D>().velocity = new Vector2(0, v) * speed;
+            if (v == 0)
+            {
+                currentSpeed = 0f;
+            }
+            else
+            {
+                if (currentSpeed >= speed)
+                {
+                    currentSpeed = speed;
+                }
+                else
+                {
+                    currentSpeed += speedSmooth;
+                }
+
+            }
+            GetComponent<Rigidbody2D>().velocity = new Vector2(0, v) * currentSpeed;
+            
+
         }
     }
 
